@@ -3,21 +3,21 @@ import './Input.css';
 
 type Props = {
   numberOfInputs: 1 | 2;
-  updateFunction: Function;
+  submitFunction: Function;
   labelText?: string;
   buttonText: string | JSX.Element;
   placeholder1: string;
   placeholder2?: string;
-  styling?: string;
+  stylingClasses?: string;
 }
 
-export default function BudgetInput({ numberOfInputs, updateFunction, labelText, buttonText, placeholder1, placeholder2, styling } : Props) {
+export default function BudgetInput({ numberOfInputs, submitFunction, labelText, buttonText, placeholder1, placeholder2, stylingClasses } : Props) {
   
   const input1Ref = useRef<HTMLInputElement | null>(null);
   const input2Ref = useRef<HTMLInputElement | null>(null);
 
 
-  function handleUpdateInfo() {
+  function handleSubmit() {
     /**
      * Calls the update function and passes in the infoRef as a string.
      * Clears the inputRef when finished.
@@ -25,12 +25,12 @@ export default function BudgetInput({ numberOfInputs, updateFunction, labelText,
     const input1: string | undefined = (input1Ref.current?.value !== null) ? input1Ref.current?.value : '' ;
     if (input1 === '') return;
     if (numberOfInputs === 1) {
-      updateFunction(input1);
+      submitFunction(input1);
     }
     else {
       const input2: string | undefined = (input2Ref.current?.value !== null) ? input2Ref.current?.value : '' ;
       if (input2 === '') return;
-      updateFunction(input1, input2);
+      submitFunction(input1, input2);
     }
     input1Ref.current!.value = null!;
     input2Ref.current!.value = null!;
@@ -43,12 +43,12 @@ export default function BudgetInput({ numberOfInputs, updateFunction, labelText,
      * @param event  Keypress event watching for 'Enter' key.
      */
     if (event.key === 'Enter') {
-      handleUpdateInfo();
+      handleSubmit();
     }
   }
 
   return (
-    <div className={`input-container my-2 ${styling}`}>
+    <div className={`input-container my-2 ${stylingClasses}`}>
       <label>{labelText}</label>
       <input 
         className='input'
@@ -67,7 +67,7 @@ export default function BudgetInput({ numberOfInputs, updateFunction, labelText,
       />
       <button
         className='button'
-        onClick={handleUpdateInfo}
+        onClick={handleSubmit}
       >{buttonText}</button>
     </div>
   )
