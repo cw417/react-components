@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Dispatch, SetStateAction } from 'react'
 
 type Props = {
-  stylingClasses: string;
+  stylingClasses?: string;
 }
 
 export default function Timer({ stylingClasses }: Props) {
